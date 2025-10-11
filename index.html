@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Chapitre 3 : Généralités sur les suites</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css" rel="stylesheet"/> <!-- Reveal -->
+<link href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/moon.css" rel="stylesheet"/> <!-- Reveal -->
+<link href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&amp;display=swap" rel="stylesheet"><!-- Police computer modern (latex) -->
+<!-- STYLE MANIM -->
+<style>
+  @media print {
+    /* Force un fond noir et du texte blanc pour l'impression */
+    body {
+        background-color: #000 !important;  /* Fond noir */
+        color: #fff !important;              /* Texte blanc */
+    }
+    h2, h3 {
+        color: #ff0000 !important;  /* Couleur des titres */
+        display: block !important;  /* S'assurer que les titres sont affichés */
+        visibility: visible !important;  /* Assurer que les titres sont visibles */
+    }
+    /* Forcer l'impression des arrière-plans pour les divs, sections, etc. */
+    * {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+  }
+  body, .reveal {
+    font-family: 'Computer Modern Serif', serif;
+    background-color: black;
+    color: white;
+  }
+  .reveal h2 {font-family: 'Computer Modern Serif', serif; color: rgb(255, 37, 37); -webkit-text-stroke: 3px rgb(255, 219, 219); paint-order: stroke fill; font-weight: bold; text-transform: none; font-size: 1.6em; margin-bottom: 0.6em;}
+  .reveal h3 {font-family: 'Computer Modern Serif', serif; color: rgb(22, 161, 22); -webkit-text-stroke: 2.1px rgb(214, 255, 214); paint-order: stroke fill; font-weight: bold; text-transform: none; text-align: left; font-size: 1.3em; margin-bottom: 0.5em; } 
+</style>
+
+<!-- DIVISONS -->
+<style>
+  .def, .defs, .defprop, .prop, .props, .theoreme, .ex, .exs, .rem, .rems, .mnemo, .voc, .rapps {
+  padding: 0.35em; border-radius: 6px; margin: 0.3em auto; position: relative; text-align: left; color: #000; max-width: 95%; min-height: 1em;
+  }
+  .def {border: 5px solid red; background-color: rgb(255, 193, 193);}
+  .defs {border: 5px solid red; background-color: rgb(255, 193, 193);}
+  .defprop {border: 5px solid red; background-color: rgb(255, 193, 193);}
+  .prop {border: 5px solid red; background-color: rgb(255, 193, 193);}
+  .props {border: 5px solid red; background-color: rgb(255, 193, 193);}
+  .theo {border: 5px solid red; background-color: rgb(255, 193, 193);}
+  .ex {border: 5px solid blue; background-color: rgb(215, 219, 255);}
+  .exs {border: 2px solid blue; background-color: rgb(215, 219, 255);}
+  .rem {border: 5px solid orange; background-color: rgb(255, 232, 188);}
+  .rems {border: 5px solid orange; background-color: rgb(255, 232, 188);}
+  .mnemo {border: 2px solid #711082;; background-color: rgba(210, 14, 204, 0.195);}
+  .voc {border: 5px solid rgb(51, 168, 51); background-color: rgb(166, 218, 166);}
+  .rapps {border: 5px solid rgb(51, 168, 51); background-color: rgb(166, 218, 166);}
+
+  
+  .def::before, .defs::before, .defprop::before, .prop::before, .props::before, .theoreme::before, .ex::before, .exs::before, .rem::before, .rems::before, .mnemo::before, .voc::before, .rapps::before {
+    display: block; text-align: left; font-weight: bold; margin-bottom: 0.5em;
+  }
+
+  .def::before { content: "Définition :"; color: red; }
+  .defs::before { content: "Définitions :"; color: red; }
+  .defprop::before { content: "Définition / Propriété :"; color: red; }
+  .prop::before  { content: "Propriété :";  color: red; }
+  .props::before  { content: "Propriétés :";  color: red; }
+  .theoreme::before  { content: "Théorème :";  color: red; }
+  .ex::before   { content: "Exemple :";   color: rgb(77, 77, 236); }
+  .exs::before   { content: "Exemples :";   color: rgb(77, 77, 236); }
+  .rem::before  { content: "Remarque :";  color: rgb(220, 144, 2); }
+  .rems::before  { content: "Remarques :";  color: rgb(220, 144, 2); }
+  .mnemo::before  { content: "Mnémotechnie :"; color: #711082; }
+  .voc::before {content: "Vocabulaire :"; color: rgb(30, 148, 30);}
+  .rapps::before {content: "Rappels :"; color: rgb(30, 148, 30);}
+</style>
+
+<!-- CONFIGURATION MATHJAX -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)'], ['$', '$']], displayMath: [['\\[', '\\]']],
+      processEscapes: true, packages: ['base', 'ams']
+    },
+    loader: {load: ['[tex]/ams']}, svg: {fontCache: 'global'}
+  };
+</script>
+
+</head>
+
+
+<body>
+<div class="reveal">
+<div class="slides">
+<!-- ----- DÉBUT DE LA PRÉSENTATION ------->
+
+<section>
+  <p class="fragment" data-fragment-index="0" style="font-size: 1.5em; color: #FFFFFF; margin-bottom: -0.11em;">
+    Chapitre 3 : Généralités sur les suites
+  </p>
+  <!-- <video class="fragment video-loop" data-fragment-index="0">
+    <source src="media/cone_hyperbole.mp4" type="video/mp4">
+  </video> -->
+  <p class="fragment" data-fragment-index="0" style="margin-top: 0em; font-size: 0.6em;">
+    Lycée Marcelin <span style="font-variant: small-caps;">Berthelot</span> - 
+    Aymé <span style="font-variant: small-caps;">Petit</span>
+  </p>
+</section>
+
+<!-- -->
+<!-- I/ Définition et modes de génération -->
+<!-- -->
+
+<section data-auto-animate>
+  <h2>I/ Définition et modes de génération</h2>
+</section>
+<section data-auto-animate>
+  <h2>I/ Définition et modes de génération</h2>
+  <div data-id="jpp" class="defs">
+    Une <strong>suite numérique</strong> est une « liste » de nombres infinie.
+    On appelle <strong>terme</strong> de rang $n\in\mathbb{N}$ le $n$-ième nombre de cette liste. 
+  </div>
+</section>
+<section data-auto-animate>
+  <div data-id="jpp" class="defs">
+    Une <strong>suite numérique</strong> est une « liste » de nombres infinie.
+    On appelle <strong>terme</strong> de rang $n\in\mathbb{N}$ le $n$-ième nombre de cette liste. 
+  </div>
+
+  <div class="ex">
+    Voici les 4 premiers termes d'une suite appelée $(u_n)$  : $u_0=7 \qquad u_1=-2 \qquad u_2=26 \qquad u_3=16 $
+  </div>
+</section>
+
+<section>
+  <div class="rems">
+    <p>• On peut considérer qu'une suite est une <strong>fonction</strong> définie sur $\mathbb{N}$ à valeurs dans $\mathbb{R}$.</p>
+    <p class="fragment">• $u_n$ est le terme de rang $n$ tandis que $(u_n)$ est la suite.</p>
+    <p class="fragment">• On peut aussi commencer la suite à partir d'un rang autre que 0. <u style="color: blue;">Ex :</u> $(u_n)$ définie à partir de $u_7=3$. </p>
+  </div>
+</section>
+
+<section data-auto-animate="">
+  <div data-id="freepalestine" class="def">
+    Une suite $(u_n)$ peut être générée <strong>explicitement</strong>, i.e. en fonction de $n$.
+  </div>
+</section>
+<section data-auto-animate="">
+  <div data-id="freepalestine" class="def">
+    Une suite $(u_n)$ peut être générée <strong>explicitement</strong>, i.e. en fonction de $n$.
+  </div>
+  <div class="ex">
+    Soit $(u_n)$ définie pour tout $n\in\mathbb{N}$ par $u_n=n^2+3$. <br>
+    <p class="fragment">• $u_0=0^2+3=3$</p>
+    <p class="fragment">• $u_1=1^2+3=4$</p>
+    <p class="fragment">• $u_0=2^2+3=7$</p>
+  </div>
+</section>
+
+<section data-auto-animate="">
+  <div data-id="nazi_sans_prepuce" class="def">
+    Une suite $(u_n)$ peut être générée <strong>par récurrence</strong>, i.e. que $u_{n+1}$ est calculé à partir du terme précédent $u_n$.
+  </div>
+</section>
+<section data-auto-animate="">
+  <div data-id="nazi_sans_prepuce" class="def">
+    Une suite $(u_n)$ peut être générée <strong>par récurrence</strong>, i.e. que $u_{n+1}$ est calculé à partir du terme précédent $u_n$.
+  </div>
+  <div class="ex">
+    Soit $(u_n)$ définie pour tout $n\in\mathbb{N}$ par $u_0=4$ et $u_{n+1}=3u_n-2$. <br>
+    <p class="fragment">• $u_1=3\times u_0-2=10$</p>
+    <p class="fragment">• $u_2=3\times u_1-2=28$</p>
+    <p class="fragment">• $u_3=3\times u_2-2=82$</p>
+  </div>
+</section>
+
+
+<!-- -->
+<!-- II/ Représentation graphique -->
+<!-- -->
+
+<section data-auto-animate>
+  <h2>II/ Représentation graphique</h2>
+</section>
+<section data-auto-animate>
+  <h2>II/ Représentation graphique</h2>
+  <strong>
+    Une suite $(u_n)$ définie sur $\mathbb{N}$ est représentée par l'ensemble
+    <span style="color: yellow;">$\Big\{(n;u_n)\Big\}_{n\in\mathbb{N}}$</span>
+    de points du plan.
+  </strong>
+</section>
+
+<section>
+  <strong>On peut aussi représenter chaque terme <span style="color: yellow;">$u_n$</span> sur <br> la droite numérique.</strong>
+</section>
+
+<!-- -->
+<!-- III/ Comportement d'une suite -->
+<!-- 1) Variations -->
+<!-- -->
+
+<section data-auto-animate>
+  <h2>III/ Comportement d'une suite</h2>
+  <h3 class="fragment">1) Variations</h3>
+</section>
+<section data-auto-animate>
+  <h2>III/ Comportement d'une suite</h2>
+  <h3>1) Variations</h3>
+  <div class="defs">
+    Soit $(u_n)$ une suite définie sur $\mathbb{N}$. <br>
+    <p class="fragment">
+      <span style="color: green; font-size: 1.2em;">➚</span> $(u_n)$ est <strong>croissante</strong> si pour tout $n\in\mathbb{N}$
+      <span style="border: 3.5px solid red; border-radius: 0.1em; padding: 0.1em;">$u_{n+1}\geqslant u_n$</span>
+    </p>
+    <p class="fragment">
+      <span style="color: red; font-size: 1.2em;">➘</span> $(u_n)$ est <strong>décroissante</strong> si pour tout $n\in\mathbb{N}$
+      <span style="border: 3.5px solid red; border-radius: 0.1em; padding: 0.1em;">$u_{n+1}\leqslant u_n$</span>
+    </p>
+    <p class="fragment">
+      <span style="color: blue; font-size: 1.2em;">➙</span> $(u_n)$ est <strong>constante</strong> si pour tout $n\in\mathbb{N}$
+      <span style="border: 3.5px solid red; border-radius: 0.1em; padding: 0.1em;">$u_{n+1}= u_n$</span>
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="rem">
+    On parle de suite <strong>stictement (dé)croissante</strong> lorsque les inégalités sont strictes, i.e. avec les symboles
+    <strong style="color: green; font-size: 1.2em;"><</strong> et
+    <strong style="color: red; font-size: 1.2em;">></strong>.
+  </div>
+</section>
+
+<section>
+  <div class="props" style="font-size: 0.88em;">
+    <p style="font-weight: bold; color: red; margin-left: 5.5em; margin-top: -1.8em;">Méthodes d'étude de variation</p>
+    <p class="fragment" style="margin-bottom: 0.75em;">
+      🪼 Sans aucune condition sur la suite $(u_n)$ : <br>
+      <span style="margin-left: 1.25em;">$(u_n)$ <strong>croissante</strong> $\iff$ $\forall n\in\mathbb{N} \quad u_{n+1}-u_n\geqslant 0$</span>
+    </p>
+    <p class="fragment" style="margin-bottom: 0.75em;">
+      🦄 Si pour tout $n\in\mathbb{N}$ on a $u_n>0$ alors : <br>
+      <span style="margin-left: 1.25em;">$(u_n)$ <strong>croissante</strong> $\iff$ $\forall n\in\mathbb{N} \quad\frac{u_{n+1}}{u_n}\geqslant 1$</span>
+    </p>
+    <p class="fragment" style="margin-bottom: 0em;">
+      🦋 Si pour tout $n\in\mathbb{N}$ on a $u_n=f(n)$ alors : <br> 
+      <span style="margin-left: 1.25em;">$(u_n)$ <strong>croissante</strong> $\iff$ $f$ croissante</span>
+    </p>
+  </div>
+</section>
+
+<!-- ----- FIN DE LA PRÉSENTATION ----- -->
+</div>
+</div>
+
+
+<!-- -->
+<!-- Scripts du body -->
+<!-- -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+
+<!-- -->
+<!-- Vidéos -->
+<!-- -->
+
+<!-- video-fragment -->
+<script>
+  const doubleDelay = 350;
+  const videoStates = new Map(); // état indépendant pour chaque vidéo
+
+  // Réinitialiser les vidéos de la slide active
+  Reveal.on('slidechanged', event => {
+    event.currentSlide.querySelectorAll('.video-fragment').forEach(v => {
+      videoStates.set(v, { started: false, lastPressTime: 0, pressTimer: null });
+      v.pause();
+      v.currentTime = 0;
+    });
+  });
+
+  document.addEventListener("keydown", e => {
+    if (!["ArrowRight","ArrowDown","PageDown"," "].includes(e.key)) return;
+
+    const currentSlide = Reveal.getCurrentSlide();
+    // On cherche la vidéo fragment actuellement visible
+    const v = currentSlide.querySelector('.video-fragment.visible');
+    if (!v) return;
+
+    // Récupérer ou initialiser l'état
+    let state = videoStates.get(v);
+    if (!state) {
+      state = { started: false, lastPressTime: 0, pressTimer: null };
+      videoStates.set(v, state);
+    }
+
+    if (v.ended) return; // si terminée → laisser Reveal gérer
+
+    const now = Date.now();
+
+    if (!state.started) {
+      // Premier suivant → lancer la vidéo
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      v.play().catch(err => console.warn("Lecture bloquée :", err));
+      state.started = true;
+      state.lastPressTime = now;
+      videoStates.set(v, state);
+      return;
+    }
+
+    // Vidéo en cours
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    if (now - state.lastPressTime < doubleDelay) {
+      // Double suivant → sauter à la fin + fragment suivant
+      clearTimeout(state.pressTimer);
+      v.currentTime = v.duration;
+      state.lastPressTime = 0;
+      Reveal.nextFragment();
+    } else {
+      // Simple suivant → toggle pause/lecture
+      state.lastPressTime = now;
+      state.pressTimer = setTimeout(() => {
+        if (v.paused) {
+          v.play().catch(err => console.warn("Lecture bloquée :", err));
+        } else {
+          v.pause();
+        }
+        state.lastPressTime = 0;
+        videoStates.set(v, state);
+      }, doubleDelay);
+    }
+
+    videoStates.set(v, state);
+  }, true);
+
+  // Quand une vidéo se termine → débloquer le fragment suivant
+  document.querySelectorAll('.video-fragment').forEach(v => {
+    v.onended = () => {
+      Reveal.nextFragment();
+    };
+  });
+</script>
+
+<!-- video-loop -->
+<script>
+class VideoLoop {
+  constructor(selector = '.video-loop') {
+    this.selector = selector;
+    this.videos = document.querySelectorAll(selector);
+    this.init();
+  }
+
+  init() {
+    const playAllInSlide = (slide) => {
+      slide.querySelectorAll(this.selector).forEach(video => {
+        const promise = video.play();
+        if (promise !== undefined) {
+          promise.catch(err => console.warn("Lecture bloquée :", err));
+        }
+      });
+    };
+
+    // Quand Reveal est prêt
+    Reveal.on('ready', event => playAllInSlide(event.currentSlide));
+
+    // Quand on change de slide
+    Reveal.on('slidechanged', event => {
+      // Stopper toutes les vidéos de l’ancienne slide
+      document.querySelectorAll(this.selector).forEach(v => {
+        v.pause();
+        v.currentTime = 0;
+      });
+      // Lancer toutes les vidéos de la nouvelle slide
+      playAllInSlide(event.currentSlide);
+    });
+
+    // Config autoplay-friendly
+    this.videos.forEach(video => {
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = "auto";
+    });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  new VideoLoop('.video-loop');
+});
+</script>
+
+<!-- Config Reveal -->
+<script>
+    Reveal.initialize({ transition: 'fade', hash: true });
+    const retypeset = (elements = null) => {
+      if (window.MathJax) {
+        MathJax.typesetClear();
+        MathJax.typesetPromise(elements || undefined)
+          .catch(err => console.error("MathJax error:", err.message));
+      }
+    };
+    Reveal.on('ready', () => retypeset());
+    Reveal.on('slidechanged', () => {
+      if (window.MathJax && MathJax.typesetClear && MathJax.typesetPromise) {
+        MathJax.typesetClear(); MathJax.typesetPromise();
+      }
+    });
+    Reveal.on('fragmentshown', event => {
+      const elements = [event.fragment, ...event.fragment.querySelectorAll('*')]; retypeset(elements);
+    });
+</script>
+</body>
+</html>
